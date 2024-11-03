@@ -3,17 +3,21 @@
 namespace App\Controllers;
 
 use App\Models\KeysModel;
+use App\Models\UserModel;
 use CodeIgniter\HTTP\Response;
 
 class Connect extends BaseController
 {
-    protected $model, $game, $uKey, $sDev, $maintenance, $staticRandw;
+    protected $model, $time, $game, $uKey, $sDev, $maintenance, $staticRandw, $userModel, $user;
 
     public function __construct()
     {
+        $this->userModel = new UserModel();
+        $this->user = $this->userModel->getUser();
         $this->model = new KeysModel();
         $this->maintenance = false;
         $this->staticRandw = "Vm8Lk7Uj2JmsjCPVPVjrLa7zgfx3uz9E";
+        $this->time = new \CodeIgniter\I18n\Time;
     }
 
     function generateRandomString($length = 20)

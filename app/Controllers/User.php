@@ -6,12 +6,14 @@ use App\Models\CodeModel;
 use App\Models\HistoryModel;
 use App\Models\UserModel;
 use App\Models\ApkModel;
+use App\Models\PanelModel;
 use CodeIgniter\Config\Services;
 use Exception;
 
 class User extends BaseController
 {
     protected $model, $userid, $user;
+    public $panelModel, $panel;
 
     public function __construct()
     {
@@ -19,6 +21,9 @@ class User extends BaseController
         $this->model = new UserModel();
         $this->user = $this->model->getUser($this->userid);
         $this->time = new \CodeIgniter\I18n\Time;
+
+        $this->panelModel = new PanelModel();
+        $this->panel = $this->panelModel->getInfo();
     }
 
     public function index()
@@ -29,6 +34,7 @@ class User extends BaseController
             'user' => $this->user,
             'time' => $this->time,
             'history' => $historyModel->getAll(),
+            'panel' => $this->panel
         ];
         return view('User/dashboard', $data);
     }
@@ -50,6 +56,7 @@ class User extends BaseController
             'time' => $this->time,
             'code' => $mCode->getCode(),
             'total_code' => $mCode->countAllResults(),
+            'panel' => $this->panel,
             'validation' => $validation
         ];
         return view('Admin/referral', $data);
@@ -80,6 +87,7 @@ class User extends BaseController
             'title' => 'APK Manager',
             'user' => $user,
             'status' => $stat,
+            'panel' => $this->panel,
             'notification' => $nottext
         ];
             
@@ -203,6 +211,7 @@ class User extends BaseController
             'user' => $user,
             'user_list' => $model->getUserList(),
             'time' => $this->time,
+            'panel' => $this->panel,
             'validation' => $validation
         ];
         return view('Admin/users', $data);
@@ -226,6 +235,7 @@ class User extends BaseController
             'target' => $model->getUser($userid),
             'user_list' => $model->getUserList(),
             'time' => $this->time,
+            'panel' => $this->panel,
             'validation' => $validation,
         ];
         return view('Admin/user_edit', $data);
@@ -409,6 +419,7 @@ class User extends BaseController
             'title' => 'Settings',
             'user' => $user,
             'time' => $this->time,
+            'panel' => $this->panel,
             'validation' => $validation
         ];
 

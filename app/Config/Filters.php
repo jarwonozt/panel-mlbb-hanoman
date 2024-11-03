@@ -25,6 +25,7 @@ class Filters extends BaseConfig
 		'admin'    => AdminFilter::class,
 		'apikey'   => \App\Filters\ApiKeyFilter::class,
 		'cors'     => \App\Filters\Cors::class,
+		'panel'	   => \App\Filters\PanelFilter::class,
 	];
 
 	/**

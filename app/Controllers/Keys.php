@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 use App\Models\HistoryModel;
 use App\Models\KeysModel;
+use App\Models\PanelModel;
 use App\Models\UserModel;
 use Config\Services;
 
 class Keys extends BaseController
 {
     protected $userModel, $model, $user, $time, $game_list, $duration, $trial_duration, $price;
+    public $panelModel, $panel;
 
     public function __construct()
     {
@@ -17,6 +19,10 @@ class Keys extends BaseController
         $this->user = $this->userModel->getUser();
         $this->model = new KeysModel();
         $this->time = new \CodeIgniter\I18n\Time;
+
+        $this->panelModel = new PanelModel();
+        $this->panel = $this->panelModel->getInfo();
+        // dd($this->panel);
 
         /* ------- Game ------- */
         $this->game_list = [
@@ -69,6 +75,7 @@ class Keys extends BaseController
             'user' => $user,
             'keylist' => $keys,
             'time' => $this->time,
+            'panel' => $this->panel
         ];
         return view('Keys/list', $data);
     }
@@ -166,6 +173,7 @@ class Keys extends BaseController
                         'time' => $this->time,
                         'key_info' => getDevice($dKey->devices),
                         'messages' => setMessage('Please carefuly edit information'),
+                        'panel' => $this->panel,
                         'validation' => $validation,
                     ];
                     return view('Keys/key_edit', $data);
@@ -310,6 +318,7 @@ class Keys extends BaseController
             'duration' => $this->duration,
             'price' => json_encode($this->price),
             'messages' => $message,
+            'panel' => $this->panel,
             'validation' => $validation,
         ];
         return view('Keys/generate', $data);
@@ -422,6 +431,7 @@ class Keys extends BaseController
             'duration' => $this->trial_duration,
             'price' => json_encode($this->price),
             'messages' => $message,
+            'panel' => $this->panel,
             'validation' => $validation,
         ];
         return view('Keys/trial_generate', $data);
@@ -538,13 +548,12 @@ class Keys extends BaseController
             $data = [
                 'total' => $used,
                 'status' => 'success',
-                'message' => 'Competation '.$duration. ' hours FOR ALL MEMBER! | TOTAL : '.$used
+                'message' => 'Competation ' . $duration . ' hours FOR ALL MEMBER! | TOTAL : ' . $used
             ];
 
             $real_response = array_merge($data, $rules);
             return $this->response->setJSON($real_response);
         }
-        
     }
 
     public function del_exp_key()

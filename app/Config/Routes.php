@@ -39,7 +39,7 @@ $routes->match(['get', 'post'], 'login', 'Auth::login');
 $routes->match(['get', 'post'], 'register', 'Auth::register');
 $routes->match(['get', 'post'], 'settings', 'User::settings');
 
-$routes->group('keys', function ($routes) {
+$routes->group('keys', ['filter' => 'panel'], function ($routes) {
 	$routes->match(['get', 'post'], '/', 'Keys::index');
 	$routes->match(['get', 'post'], 'generate', 'Keys::generate');
 	$routes->match(['get', 'post'], 'generate_trial_key', 'Keys::generate_trial_key');

@@ -18,7 +18,27 @@
             </div>
         <?php else : ?>
             <div class="alert alert-secondary fade show" role="alert">
-                Welcome,  <strong><?= getName($user) ?></strong>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6">
+                        Welcome, <strong><?= getName($user) ?></strong>
+                    </div>
+                    <div class="col-6 d-none d-md-block text-end">
+                        <?php 
+                        if($panel == null){
+                         ?><a href="/activation" class="btn btn-sm btn-success">Activation</a>   
+                        <?php } else {?>
+                            <strong>Panel Duration : <?= $panel ?></strong>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-info fade show d-block d-md-none" role="alert">
+            <?php 
+                        if($panel == null){
+                         ?><a href="/activation" class="btn btn-sm btn-success">Activation</a>   
+                        <?php } else {?>
+                            <strong>Panel Duration <br> <?= $panel ?></strong>
+                        <?php } ?>
             </div>
         <?php endif; ?>
     <?php else : ?>

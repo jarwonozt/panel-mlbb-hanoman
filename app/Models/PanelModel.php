@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use CodeIgniter\I18n\Time;
 use CodeIgniter\Model;
 
 class PanelModel extends Model
 {
-    protected $DBGroup          = 'default';
     protected $table            = 'panels';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -39,4 +39,37 @@ class PanelModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getInfo()
+    {
+        $url = base_url();
+        $wfind = $this->where('panel_url', $url)
+            ->get()
+            ->getFirstRow();
+
+        
+        if ($wfind) {
+            $targetDate = new Time($wfind->expired);
+            $currentDate = new Time();
+
+            if ($currentDate > $targetDate) {
+                $this->update($wfind->id, ['panel_url' => null]);
+                $result = null;
+            }else{
+                $interval = $currentDate->diff($targetDate);
+                $result = $this->formatInterval($interval);
+            }
+        }
+
+        return $result ?? null;
+    }
+
+    private function formatInterval($interval)
+    {
+        $days = $interval->d;
+        $hours = $interval->h;
+        $minutes = $interval->i;
+
+        return "{$days} Days, {$hours} Hours, {$minutes} Minutes";
+    }
 }
