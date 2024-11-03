@@ -421,10 +421,9 @@ class User extends BaseController
         $password = $this->request->getPost('password');
 
         $user = $this->user;
-        $currHash = create_password($current, false);
         $validation = Services::validation();
-
-        if (!password_verify($currHash, $user->password)) {
+        
+        if (!password_verify($current, $user->password)) {
             $msg = "Wrong current password.";
             $validation->setError('current', $msg);
         } elseif ($current == $password) {
@@ -453,7 +452,7 @@ class User extends BaseController
         if (!$this->validate($form_rules)) {
             return redirect()->back()->withInput()->with('msgDanger', 'Something wrong! Please check the form');
         } else {
-            $newPassword = create_password($current);
+            $newPassword = password_hash($password, PASSWORD_DEFAULT);
             $this->model->update(session('userid'), ['password' => $newPassword]);
             return redirect()->back()->with('msgSuccess', 'Password Successfuly Changed.');
         }
