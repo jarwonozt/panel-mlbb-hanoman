@@ -71,7 +71,7 @@ class Connect extends BaseController
                 $time = new \CodeIgniter\I18n\Time;
                 $model = $this->model;
                 $findKey = $model
-                    ->getKeysGame(['user_key' => $uKey, 'game' => $game]);
+                    ->getKeysGame(['user_key' => $uKey, 'game' => $game, 'status' => true]);
 
                 if ($findKey) {
                     $id_keys = $findKey->id_keys;

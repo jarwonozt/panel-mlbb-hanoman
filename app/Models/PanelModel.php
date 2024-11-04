@@ -44,7 +44,7 @@ class PanelModel extends Model
     {
         return $this->where('admin_panel', $username)->first(); // Fetch panel info where panel_admin matches the username
     }
-    
+
     public function getInfo()
     {
         $url = base_url();
@@ -57,8 +57,19 @@ class PanelModel extends Model
 
             if ($currentDate > $targetDate) {
                 $this->update($wfind->id, ['status' => false]);
+
+                // update status key jika expired_date kosong
+                $connect = db_connect();
+                $builder = $connect->table('keys_code');
+                $used = $builder->where('expired_date', NULL)->countAllResults();
+
+                for ($i = 0; $i < $used; $i++) {
+                    $updateKey = $builder->where('expired_date', NULL);
+                    $updateKey->set('status', false)->update();
+                }
+
                 $result = 'Panel Expired';
-            }else{
+            } else {
                 $interval = $currentDate->diff($targetDate);
                 $result = $this->formatInterval($interval);
             }
