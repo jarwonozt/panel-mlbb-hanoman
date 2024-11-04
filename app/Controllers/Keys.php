@@ -51,6 +51,7 @@ class Keys extends BaseController
 
         // Trial Duration
         $this->trial_duration = [
+            '120' => '2 Hours',
             '180' => '3 Hours',
             '300' => '5 Hours',
             '600' => '10 Hours',
