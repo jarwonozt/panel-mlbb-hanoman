@@ -25,7 +25,6 @@ class PanelAPIClientController extends BaseController
             'panel_name'   => config('App')->appName,
             'panel_url'    => base_url(),
             'admin_panel'  => $this->model->getUser(session()->userid)->username,
-            'expired'      => $this->time::now()->addDays(30)->toLocalizedString('YYYY-MM-dd HH:mm:ss'),
             'status'       => true,
             'description'  => null,
         ];
@@ -33,9 +32,8 @@ class PanelAPIClientController extends BaseController
         // dd($data);
 
         $jsonData = json_encode($data);
-
-        // Initialize cURL session
-        $ch = curl_init('http://localhost:8080/panels');
+        $apiEndpoint = config('App')->endpointApi;
+        $ch = curl_init($apiEndpoint);
 
         // Set cURL options
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

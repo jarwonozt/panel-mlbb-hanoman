@@ -23,8 +23,9 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $appName = 'LARAGON';
-    public $baseURL = 'http://localhost:8080/';
+    public $appName     = 'LARAGON';
+    public $baseURL     = 'http://localhost:8080/';
+    public $endpointApi = 'http://localhost:8080/panels';
 
     /**
      * --------------------------------------------------------------------------

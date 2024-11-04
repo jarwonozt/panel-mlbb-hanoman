@@ -25,9 +25,9 @@
                     <div class="col-6 d-none d-md-block text-end">
                         <?php 
                         if($panel == null){
-                         ?><a href="/activation" class="btn btn-sm btn-success">Activation</a>   
+                         ?><a href="/activation" class="btn btn-sm btn-dark">Activation Panel</a>   
                         <?php } else {?>
-                            <strong>Panel Duration : <?= $panel ?></strong>
+                            <strong class="text-primary">Panel Duration : <?= $panel ?></strong>
                         <?php } ?>
                     </div>
                 </div>

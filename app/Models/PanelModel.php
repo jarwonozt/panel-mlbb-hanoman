@@ -43,11 +43,10 @@ class PanelModel extends Model
     public function getInfo()
     {
         $url = base_url();
-        $wfind = $this->where('panel_url', $url)
+        $wfind = $this->where('panel_url', $url)->where('status', true)
             ->get()
             ->getFirstRow();
 
-        
         if ($wfind) {
             $targetDate = new Time($wfind->expired);
             $currentDate = new Time();
