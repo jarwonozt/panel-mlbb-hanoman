@@ -25,7 +25,7 @@
                     <div class="col-6 d-none d-md-block text-end">
                         <?php 
                         if($panel == null){
-                         ?><a href="/activation" class="btn btn-sm btn-dark">Activation Panel</a>   
+                         ?><a href="/activation" class="btn btn-sm btn-primary">Activation Panel</a>   
                         <?php } else {?>
                             <strong class="text-primary">Panel Duration : <?= $panel ?></strong>
                         <?php } ?>
@@ -35,7 +35,7 @@
             <div class="alert alert-info fade show d-block d-md-none" role="alert">
             <?php 
                         if($panel == null){
-                         ?><a href="/activation" class="btn btn-sm btn-success">Activation</a>   
+                         ?><a href="/activation" class="btn btn-sm btn-primary">Activation Panel</a>   
                         <?php } else {?>
                             <strong>Panel Duration <br> <?= $panel ?></strong>
                         <?php } ?>
