@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use App\Models\UserModel;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
@@ -11,15 +12,24 @@ class PanelFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        // Load the model (make sure it's available)
+        $username = '';
+        $userModel       = new UserModel();
+        $user            = $userModel->where('username', session('unames'))->first();
+        if($user['level'] > 1)
+        {
+            $username = $user['uplink'];
+        }else{
+            $username = $user['username'];
+        }
+        // dd($username);  
         $panelModel = new \App\Models\PanelModel();
 
-        $panelInfo = $panelModel->getInfoByAdmin(session('unames'));
+        $panelInfo = $panelModel->getInfoByAdmin($username);
 
         if ($panelInfo === null) {
             return redirect()->to('/')->with('error', 'Access denied: No panel information found for user.');
         }
-
+        
         $targetDate = new Time($panelInfo['expired']);
         $currentDate = new Time();
 
