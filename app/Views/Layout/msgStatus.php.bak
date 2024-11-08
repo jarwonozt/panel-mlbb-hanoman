@@ -26,11 +26,9 @@
                         <?php 
                         if($panel == null){
                          ?><a href="/activation" class="btn btn-sm btn-primary">Activation Panel</a>   
-                        <?php } else {
-                        
-            if($user->level == 1){ ?>
+                        <?php } else {?>
                             <strong class="text-primary">Panel Duration : <?= $panel ?></strong>
-                        <?php }} ?>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
