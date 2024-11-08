@@ -23,30 +23,42 @@
                         Welcome, <strong><?= getName($user) ?></strong>
                     </div>
                     <div class="col-6 d-none d-md-block text-end">
+                        <?php
+                            if ($panel == null) {
+                        ?>
+                            <a href="/activation" class="btn btn-sm btn-primary">Activation Panel</a>
                         <?php 
-                        if($panel == null){
-                         ?><a href="/activation" class="btn btn-sm btn-primary">Activation Panel</a>   
-                        <?php } else {
-                        
-            if($user->level == 1){ ?>
-                            <strong class="text-primary">Panel Duration : <?= $panel ?></strong>
-                        <?php }} ?>
+                            } else {
+                                if ($user->level == 1) { 
+                        ?>
+                                <strong class="text-primary">Panel Duration : <?= $panel ?></strong>
+                        <?php 
+                                }
+                            } 
+                        ?>
                     </div>
                 </div>
             </div>
-            <?php 
-            if($user->level == 1){ ?>
-            <div class="alert alert-info fade show d-block d-md-none" role="alert">
-            <?php 
-                        if($panel == null){
-                         ?><a href="/activation" class="btn btn-sm btn-primary">Activation Panel</a>   
-                        <?php } else {
-                        ?>
-                        
-                            <strong>Panel Duration <br> <?= $panel ?></strong>
-                            
-                        <?php } ?>
-            </div><?php } ?>
+            <?php
+            if ($user->level == 1) 
+            {
+            ?>
+                <div class="alert alert-info fade show d-block d-md-none" role="alert">
+                    <?php
+                    if ($panel == null) {
+                    ?>
+                        <a href="/activation" class="btn btn-sm btn-primary">Activation Panel</a>
+                    <?php
+                    } else {
+                    ?>
+                        <strong>Panel Duration <br> <?= $panel ?></strong>
+                    <?php
+                    }
+                    ?>
+                </div>
+            <?php
+            }
+            ?>
         <?php endif; ?>
     <?php else : ?>
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
